@@ -338,5 +338,50 @@ Some well-known BERT-based models include:
     \item \textbf{RoBERTa} – A robustly optimized version of BERT with improved training techniques.
     \item \textbf{ALBERT} – A lighter version that reduces memory usage and increases speed.
 \end{itemize}
+\subsection{TF-IDF (Term Frequency – Inverse Document Frequency)}
+
+TF-IDF is a numerical measure used to evaluate the importance of a word in a document relative to a collection of documents (corpus). It combines two metrics: Term Frequency (TF) and Inverse Document Frequency (IDF).
+
+\subsubsection*{1. Term Frequency (TF)}
+
+Term Frequency measures how frequently a term appears in a document. It is calculated using the formula:
+
+\[
+\text{TF}(t, d) = \frac{f_{t,d}}{N_d}
+\]
+
+where:
+\begin{itemize}
+    \item $f_{t,d}$ is the number of times term $t$ appears in document $d$,
+    \item $N_d$ is the total number of terms in document $d$.
+\end{itemize}
+
+\subsubsection*{2. Inverse Document Frequency (IDF)}
+
+IDF measures how important a term is across the entire corpus. Rare terms across documents get higher scores. It is calculated as:
+
+\[
+\text{IDF}(t) = \log \left( \frac{N}{1 + n_t} \right)
+\]
+
+where:
+\begin{itemize}
+    \item $N$ is the total number of documents in the corpus,
+    \item $n_t$ is the number of documents containing the term $t$,
+    \item $1$ is added in the denominator to avoid division by zero.
+\end{itemize}
+
+\subsubsection*{3. TF-IDF Calculation}
+
+The final TF-IDF score for a term $t$ in document $d$ is given by:
+
+\[
+\text{TF-IDF}(t, d) = \text{TF}(t, d) \times \text{IDF}(t)
+\]
+
+\subsubsection*{4. Use in NLP}
+
+TF-IDF is commonly used to convert text into numerical features. It helps highlight words that are important in a specific document but not common across all documents. This is useful in tasks like text classification, clustering, and search engines.
+
 
 
