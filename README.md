@@ -73,3 +73,55 @@ TASK 5
 I attempted to fine-tune an open-source Large Language Model (LLM) for the transaction categorization task, but unfortunately, it didn't work out due to several issues. One of the primary challenges was the model's size and resource requirements. Fine-tuning LLMs is computationally intensive, and due to hardware limitations, such as insufficient RAM and processing power on our current system, the process couldn't be completed successfully. Specifically, the models were too large to be effectively processed on a CPU, and the RAM usage spiked, leading to crashes or failure to load the models properly.
 Additionally, there were issues related to optimizing the models for our specific task, such as ensuring that the model could generalize well to the various types of transaction descriptions in our synthetic dataset. These factors made it difficult to deploy the model effectively within the resources available, and it was not able to meet our expectations for accuracy or efficiency.
 Given these challenges, we are exploring alternative approaches, such as simplifying the model or utilizing more efficient architectures, and we may consider using cloud platforms with better computational resources to handle the fine-tuning and inference processes.
+
+NLTK (Natural Language Toolkit) is a popular tool in Python used for working with text. One of its important features is tokenization, which means splitting text into smaller parts like sentences or words.
+
+Here are some useful tokenizing functions in NLTK:
+
+1. word_tokenize – Breaks text into words and punctuation marks.
+
+
+2. sent_tokenize – Splits a paragraph into separate sentences.
+
+
+3. RegexpTokenizer – Lets you split text using your own rules or patterns.
+
+
+4. WhitespaceTokenizer – Breaks text based on spaces only.
+
+
+5. TweetTokenizer – Made for handling tweets, emojis, hashtags, and short messages.
+
+Lemmatization and stemming are two ways to reduce words to their root form, which helps in processing and understanding text better in NLP.
+
+How They Work:
+
+Stemming removes the end of a word to get its base form. It doesn’t check if the result is a real word. For example, "running", "runs", and "runner" might all become "run" or "runn". It works by chopping off suffixes using basic rules.
+
+Lemmatization looks at the word’s meaning and part of speech (like noun or verb). It uses a dictionary to find the correct root word, called the lemma. For example, "better" becomes "good", and "running" becomes "run".
+
+
+Functions in NLTK:
+
+Stemming Function:
+PorterStemmer – A common stemmer that applies simple rules to cut words.
+(e.g., "PorterStemmer().stem('running')returns'run'`)
+
+Lemmatization Function:
+WordNetLemmatizer – Uses the WordNet dictionary to find the correct base form of a word.
+(e.g., WordNetLemmatizer().lemmatize('running', pos='v') returns 'run')
+
+
+
+---
+
+Summary:
+Stemming is faster but less accurate, while lemmatization gives better and more meaningful results. Both are helpful for reducing different forms of a word into one form before analyzing text.
+
+str.lower() – Converts text to lowercase.
+
+re.sub() – Removes punctuation, numbers, or extra spaces using regular expressions.
+
+string.punctuation – A list of punctuation marks that can be removed.
+stopwords.words() – Gives a list of stopwords in a language.
+
