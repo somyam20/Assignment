@@ -124,4 +124,53 @@ re.sub() – Removes punctuation, numbers, or extra spaces using regular express
 
 string.punctuation – A list of punctuation marks that can be removed.
 stopwords.words() – Gives a list of stopwords in a language.
+Here’s a simple explanation of functions used for Named Entity Recognition (NER) and Word Sense Disambiguation (WSD) in NLP using NLTK and related tools:
+
+
+---
+
+1. Named Entity Recognition (NER):
+
+What it is:
+NER is used to find and classify names in text – like people, places, organizations, dates, etc.
+
+Common functions:
+
+ne_chunk() – Performs named entity recognition on a chunked sentence.
+
+pos_tag() – Tags each word with its part of speech (needed before NER).
+
+word_tokenize() – Breaks text into words (used before POS tagging).
+
+
+Together, these help extract named entities from text.
+
+
+---
+
+2. Word Sense Disambiguation (WSD):
+
+What it is:
+WSD is about finding the correct meaning of a word based on its context (e.g., "bank" as a riverbank or a money bank).
+
+Common function:
+
+lesk() – Comes from the nltk.wsd module and tries to find the best meaning (sense) of a word in a sentence using the Lesk algorithm.
+
+It compares the word’s context with dictionary definitions to pick the most likely meaning.
+
+
+
+---
+
+Summary:
+NER helps recognize important names in text, while WSD helps understand the correct meaning of words with multiple senses. Both are important for making machines understand human language better.
+
+generate() – A function in transformer models like GPT-2, GPT-3, or T5 that creates text from a starting input.
+
+pipeline('text-generation') – A Hugging Face pipeline that wraps around models to make text generation easier.
+gensim.summarize() – Extracts key sentences from the text to create a summary (used for extractive summarization).
+
+Transformers like Bart or T5 – Used for abstractive summarization using models from the Hugging Face Transformers library.
+
 
