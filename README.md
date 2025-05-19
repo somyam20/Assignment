@@ -1,4 +1,4 @@
-# Assignment
+ii# Assignment
 TASK 0
 machine learning models.......explain it like i m explaining
 ChatGPT said:
@@ -172,5 +172,171 @@ pipeline('text-generation') – A Hugging Face pipeline that wraps around models
 gensim.summarize() – Extracts key sentences from the text to create a summary (used for extractive summarization).
 
 Transformers like Bart or T5 – Used for abstractive summarization using models from the Hugging Face Transformers library.
+
+What is it?
+Bag of Words is a way to turn text into numbers so that a computer can understand and use it in models. It looks at which words are in the text and how many times they appear, but it does not care about the order of the words.
+
+
+---
+
+How It Works:
+
+1. Collect Text – Start with a few sentences or documents.
+
+
+2. Split into Words – Break the sentences into individual words (this is called tokenization).
+
+
+3. Build a Word List – Make a list of all the unique words from the text (this is your vocabulary).
+
+
+4. Count Words – For each sentence, count how many times each word in the list appears.
+
+
+
+This gives you a set of numbers (called a vector) for each sentence or document.
+
+
+---
+
+Why It’s Called “Bag” of Words:
+
+Because it doesn’t care about the order of the words — just like a real bag doesn’t care how you place items in it.
+
+
+---
+
+Functions Used (from scikit-learn):
+
+CountVectorizer() – This is the main tool used to apply Bag of Words in Python. It:
+
+Breaks sentences into words,
+
+Creates a word list (vocabulary),
+
+Turns sentences into word count numbers.
+
+
+fit() – Learns the words from your text.
+
+transform() – Converts new text into numbers using the learned words.
+
+fit_transform() – Does both steps together.
+\subsection{TF-IDF (Term Frequency – Inverse Document Frequency)}
+
+TF-IDF is a numerical measure used to evaluate the importance of a word in a document relative to a collection of documents (corpus). It combines two metrics: Term Frequency (TF) and Inverse Document Frequency (IDF).
+
+\subsubsection*{1. Term Frequency (TF)}
+
+Term Frequency measures how frequently a term appears in a document. It is calculated using the formula:
+
+\[
+\text{TF}(t, d) = \frac{f_{t,d}}{N_d}
+\]
+
+where:
+\begin{itemize}
+    \item f_{t,d} is the number of times term t appears in document d,
+    \item N_d is the total number of terms in document d.
+\end{itemize}
+
+\subsubsection*{2. Inverse Document Frequency (IDF)}
+
+IDF measures how important a term is across the entire corpus. Rare terms across documents get higher scores. It is calculated as:
+
+\[
+\text{IDF}(t) = \log \left( \frac{N}{1 + n_t} \right)
+\]
+
+where:
+\begin{itemize}
+    \item N is the total number of documents in the corpus,
+    \item n_t is the number of documents containing the term t,
+    \item 1 is added in the denominator to avoid division by zero.
+\end{itemize}
+
+\subsubsection*{3. TF-IDF Calculation}
+
+The final TF-IDF score for a term t in document d is given by:
+
+\[
+\text{TF-IDF}(t, d) = \text{TF}(t, d) \times \text{IDF}(t)
+\]
+
+\subsubsection*{4. Use in NLP}
+
+TF-IDF is commonly used to convert text into numerical features. It helps highlight words that are important in a specific document but not common across all documents, which improves the performance of text classification, clustering, and search algorithms.
+
+\subsection{BERT (Bidirectional Encoder Representations from Transformers)}
+
+BERT is a deep learning model developed by Google for understanding the meaning of words in context. It is based on the Transformer architecture and is designed to handle various natural language processing (NLP) tasks such as text classification, question answering, and named entity recognition.
+
+\subsubsection*{1. What is BERT?}
+
+BERT stands for \textbf{Bidirectional Encoder Representations from Transformers}. Unlike earlier models that read text either left-to-right or right-to-left, BERT reads text in both directions at the same time. This allows it to understand the full context of a word based on all surrounding words, not just the ones before or after it.
+
+\subsubsection*{2. Pre-training Tasks}
+
+BERT is first trained on two unsupervised tasks using a large text corpus:
+
+\begin{itemize}
+    \item \textbf{Masked Language Modeling (MLM)}: Random words in a sentence are replaced with a [MASK] token, and the model learns to predict the missing words.\\
+    Example: \textit{``The cat sat on the [MASK].''} → Model predicts: \textit{``mat''}
+    
+    \item \textbf{Next Sentence Prediction (NSP)}: The model is given two sentences and learns to predict whether the second sentence naturally follows the first.\\
+    Example: \textit{``I went to the market.'' ``I bought vegetables.''} → Is next sentence? \textit{Yes}
+\end{itemize}
+
+\subsubsection*{3. Architecture Overview}
+
+BERT uses only the \textbf{encoder} part of the Transformer model. It consists of multiple layers of self-attention and feed-forward networks. Each layer allows the model to focus on different parts of a sentence and learn deeper relationships.
+
+\subsubsection*{4. Tokenization}
+
+BERT uses a special method called \textbf{WordPiece Tokenization}, which breaks words into sub-word units. This helps it handle unknown or rare words by understanding them as combinations of smaller, known parts.
+
+Example: \textit{``unhappiness''} → \textit{``un'', ``##happiness''}
+
+\subsubsection*{5. Input Format}
+
+BERT inputs are formatted as:
+
+\[
+[\text{CLS}], \text{Token}_1, \text{Token}_2, ..., \text{Token}_n, [\text{SEP}]
+\]
+
+\begin{itemize}
+    \item \textbf{[CLS]} – Special token at the beginning, used for classification tasks.
+    \item \textbf{[SEP]} – Special token used to separate two sentences.
+\end{itemize}
+
+\subsubsection*{6. Fine-tuning}
+
+After pre-training, BERT is fine-tuned on specific NLP tasks by adding a small task-specific layer on top of the model. The entire model is trained further on a smaller dataset to perform tasks like:
+
+\begin{itemize}
+    \item Sentiment Analysis
+    \item Question Answering
+    \item Text Classification
+    \item Named Entity Recognition
+\end{itemize}
+
+\subsubsection*{7. Benefits of BERT}
+
+\begin{itemize}
+    \item Captures context from both directions (left and right).
+    \item Pre-trained on a massive dataset, which improves performance on smaller datasets.
+    \item Works well for a wide range of NLP tasks with minimal changes.
+\end{itemize}
+
+\subsubsection*{8. Popular Variants}
+
+Some well-known BERT-based models include:
+
+\begin{itemize}
+    \item \textbf{DistilBERT} – A smaller, faster version of BERT.
+    \item \textbf{RoBERTa} – A robustly optimized version of BERT with improved training techniques.
+    \item \textbf{ALBERT} – A lighter version that reduces memory usage and increases speed.
+\end{itemize}
 
 
