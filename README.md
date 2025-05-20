@@ -1,27 +1,4 @@
-ii# Assignment
-TASK 0
-machine learning models.......explain it like i m explaining
-ChatGPT said:
-The provided code is designed to generate synthetic financial transaction and credit bureau report data for a set of customers to mimic real-world bank statements and credit reports. Here's how it works:
-
-First, a list of customer names is created, and each customer is assigned a random customer ID. Then, a variety of transaction categories like Salary Credit, Shopping, Food & Dining, Loan EMI Payments, Utility Bills, Cash Withdrawals, and Bank Transfers are defined to simulate realistic transaction types. For each customer, the code generates a random set of transactions. Each transaction includes details such as the transaction date, type, description, and amount.
-
-To make the data more realistic, 10% of the transactions are intentionally made inconsistent. This could mean leaving out a description or transaction amount to simulate the messy, real-world nature of financial data. The transaction dates are selected randomly within the last year, and different formats like "YYYY-MM-DD," "DD/MM/YYYY," or "Mon DD, YYYY" are used. This variation in date formats further introduces inconsistencies.
-
-Along with the transaction data, the code also generates a credit bureau report for each customer. This report includes information such as the credit score, active loans, credit utilization, missed payments, total debt, and debt-to-income ratio. These values are randomly assigned within realistic ranges, ensuring that the data reflects actual financial conditions.
-
-Once the data for all customers is generated, it is converted into Pandas DataFrames for easy manipulation and processing. The data is then saved as CSV files for future use.
-
-The goal of this approach is to create synthetic data that closely resembles real-world financial data, while still allowing flexibility in the number of customers and transactions generated. The inclusion of inconsistencies, random values, and varying formats makes the dataset a good representation of the messy nature of real-world data. This is especially useful for testing tasks like ETL pipelines or machine learning models, which need to handle imperfect or inconsistent data in real-world scenarios.
-
-TASK 1
-The provided code is part of the ETL (Extract, Transform, Load) pipeline designed to clean and process financial transactions and credit bureau report data. Let me break down the steps for you.
-
-First, the raw data is loaded from the provided CSV files into Pandas DataFrames for easier manipulation. This is the "Extract" step of the ETL process. The next focus is on cleaning the data to ensure it's consistent and ready for analysis.
-
-A key transformation is standardizing the date column. Since the data might contain various date formats (like "YYYY-MM-DD," "DD/MM/YYYY," and "Mon DD, YYYY"), a function is used to convert all the dates into a consistent "YYYY-MM-DD" format. If any date doesn't match the specified formats, the function returns NaN for invalid entries, ensuring that only valid date formats remain in the dataset.
-
-Next, the code handles missing transaction descriptions. If any description is missing (i.e., it’s a NaN value), the code fills it with the placeholder string "Unknown Transaction." This ensures that there are no transactions with empty descriptions, which could cause issues in future analysis or processing.
+   .
 
 For the Amount column, any missing values are filled with the median value of the amounts. This is done to keep the data consistent and avoid introducing bias, as filling with zeros or random values could skew the results.
 
@@ -383,5 +360,97 @@ The final TF-IDF score for a term $t$ in document $d$ is given by:
 
 TF-IDF is commonly used to convert text into numerical features. It helps highlight words that are important in a specific document but not common across all documents. This is useful in tasks like text classification, clustering, and search engines.
 
+import os
+import streamlit as st
+from groq import Groq
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+# Initialize Groq client
+client = Groq(api_key=GROQ_API_KEY)
+
+# Set up Streamlit page
+st.set_page_config(page_title="Groq Chatbot", layout="centered")
+st.title("Chat with Groq-powered LLM")
+
+# Initialize chat history
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+# Display chat history
+for message in st.session_state.chat_history:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+# User input
+user_input = st.chat_input("Say something...")
+
+if user_input:
+    # Append user message to chat history
+    st.session_state.chat_history.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.markdown(user_input)
+
+    # Generate response from Groq
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = client.chat.completions.create(
+                model="llama-3.1-8b-instant",  # Replace with your desired model
+                messages=st.session_state.chat_history
+            )
+            reply = response.choices[0].message["content"]
+            st.markdown(reply)
+
+    # Append assistant response to chat history
+    st.session_state.chat_history.append({"role": "assistant", "content": reply})
 
 
+import os
+import streamlit as st
+from groq import Groq
+from dotenv import load_dotenv
+
+# Load the API key from .env file
+load_dotenv()
+groq_api_key = os.getenv("GROQ_API_KEY")
+
+# Initialize Groq client
+client = Groq(api_key=groq_api_key)
+
+# Set up the Streamlit page
+st.set_page_config(page_title="Groq Chatbot", layout="centered")
+st.title("Groq-Powered Chatbot")
+
+# Initialize chat history
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+# Display past messages
+for message in st.session_state.chat_history:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+# Input prompt
+user_input = st.chat_input("Type your message...")
+
+if user_input:
+    # Add user message to history
+    st.session_state.chat_history.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.markdown(user_input)
+
+    # Query Groq API
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = client.chat.completions.create(
+                model="llama-3-8b-instruct",  # You can use other Groq models too
+                messages=st.session_state.chat_history
+            )
+            assistant_reply = response.choices[0].message.content
+            st.markdown(assistant_reply)
+
+    # Save assistant reply to chat history
+    st.session_state.chat_history.append({"role": "assistant", "content": assistant_reply})
